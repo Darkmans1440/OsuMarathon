@@ -4,7 +4,6 @@ import traceback
 import Variables
 from commands.impl.LoadBeatmapCommand import LoadBeatmapCommand
 from commands.impl.SwapLoadedBeatmapCommand import SwapLoadedBeatmapCommand
-from commands.impl.TestCommand import TestCommand
 from commands.impl.UnloadBeatmapCommand import UnloadBeatmapCommand
 from commands.impl.marathon.CreateMarathonCommand import CreateMarathonCommand
 from commands.impl.marathon.PropertyCommand import PropertyCommand
@@ -14,7 +13,6 @@ Variables.handler.register_command(SwapLoadedBeatmapCommand())
 Variables.handler.register_command(UnloadBeatmapCommand())
 Variables.handler.register_command(CreateMarathonCommand())
 Variables.handler.register_command(PropertyCommand())
-Variables.handler.register_command(TestCommand())
 
 
 def update_message():
@@ -42,5 +40,6 @@ def run():
                 update_message()
             except Exception:
                 traceback.print_exc()
+
 
 run()

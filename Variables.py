@@ -1,5 +1,6 @@
-import unicodedata
 import re
+
+import unicodedata
 
 from commands.CommandHandler import CommandHandler
 

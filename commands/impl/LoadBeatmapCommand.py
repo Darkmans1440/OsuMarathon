@@ -9,7 +9,8 @@ from commands.Command import Command
 class LoadBeatmapCommand(Command):
 
     def __init__(self):
-        super().__init__("load", "<1 or no arguments (e.x \"path\\to\\song\\test.osu\"), leave empty to open file picker to load beatmap(s)>")
+        super().__init__("load",
+                         "<1 or no arguments (e.x \"path\\to\\song\\test.osu\"), leave empty to open file picker to load beatmap(s)>")
 
     def execute(self, params):
 

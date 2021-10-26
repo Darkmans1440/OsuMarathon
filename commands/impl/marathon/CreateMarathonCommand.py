@@ -15,7 +15,8 @@ from pydub import AudioSegment
 class CreateMarathonCommand(Command):
 
     def __init__(self):
-        super().__init__("create", "<0 arguments, creates the marathon diff in the specified path chosen in a file picker>")
+        super().__init__("create",
+                         "<0 arguments, creates the marathon diff in the specified path chosen in a file picker>")
 
     def execute(self, params):
 
