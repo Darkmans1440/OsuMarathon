@@ -1,6 +1,9 @@
 import os
 import traceback
 
+from colorama import Fore, Style
+from colorama import init
+
 import Variables
 from commands.impl.LoadBeatmapCommand import LoadBeatmapCommand
 from commands.impl.SwapLoadedBeatmapCommand import SwapLoadedBeatmapCommand
@@ -18,10 +21,10 @@ Variables.handler.register_command(PropertyCommand())
 def update_message():
     os.system('cls' if os.name == 'nt' else 'clear')
     print(">>> Marathon <<<\n")
-    print("Last Command Message: " + Variables.last_command_message + "\n")
+    print(f"{Fore.GREEN}Last Command Message: " + Variables.last_command_message + f"{Style.RESET_ALL}\n")
     print(Variables.get_default_values_string())
     print("Estimated Marathon Length = \"" + Variables.get_properties_length() + "\"")
-    print("\nLoaded Beatmaps:\n" + Variables.get_loaded_properties_string())
+    print("\nLoaded Beatmaps (Numbers = beatmap index):\n" + Variables.get_loaded_properties_string())
     print("Beatmap Commands:\n" + Variables.handler.get_command_list_string_of(["load", "unload", "swap"]))
     print("Marathon Commands:\n" + Variables.handler.get_command_list_string_of(["create", "property"]))
 
@@ -42,4 +45,5 @@ def run():
                 traceback.print_exc()
 
 
+init(autoreset=True)  # colorama init
 run()

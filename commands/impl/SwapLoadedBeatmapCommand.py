@@ -5,7 +5,7 @@ from commands.Command import Command, argument_to_int_parameter
 class SwapLoadedBeatmapCommand(Command):
 
     def __init__(self):
-        super().__init__("swap", "<2 arguments (e.x: 0 1), swaps the first argument beatmap with the second>")
+        super().__init__("swap", "(first-index) (second-index) swaps the <first-index> beatmap with the <second-index> beatmap")
 
     def execute(self, params):
 

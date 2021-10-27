@@ -8,8 +8,7 @@ from commands.Command import Command
 class PropertyCommand(Command):
 
     def __init__(self):
-        super().__init__("property",
-                         "<2 arguments, (e.x title \"my custom title\"), prints possible properties if no arguments. Background requires no arguments)>")
+        super().__init__("property", "<property> <new-value> sets the <property> to the <new value> (Background requires no arguments and opens a file picker)")
 
     def execute(self, params):
 

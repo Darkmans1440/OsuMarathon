@@ -8,17 +8,28 @@ from zipfile import ZipFile
 
 import FileProperties
 import Variables
-from commands.Command import Command
+from commands.Command import Command, argument_to_int_parameter
 from pydub import AudioSegment
 
 
 class CreateMarathonCommand(Command):
 
     def __init__(self):
-        super().__init__("create",
-                         "<0 arguments, creates the marathon diff in the specified path chosen in a file picker>")
+        super().__init__("create", "(spacing-between-beatmaps-in-seconds) opens a directory picker to choose where to save the output marathon")
 
     def execute(self, params):
+
+        if len(params) < 1:
+            Variables.last_command_message = "Insufficient parameters for Create"
+            return
+
+        map_spacing = argument_to_int_parameter(params[0])
+
+        if map_spacing is None or map_spacing < 1:
+            Variables.last_command_message = "First argument for Create must be an integer and at least 1"
+            return
+
+        map_spacing = map_spacing * 1000
 
         if len(Variables.loaded_properties) < 2:
             Variables.last_command_message = "Must have at least 2 beatmaps to create a marathon"
@@ -64,7 +75,6 @@ class CreateMarathonCommand(Command):
         new_map.get_timingpoints().clear()
 
         append_at = 0
-
         audio_segment = AudioSegment.empty()
 
         loaded_map: FileProperties.OsuProperties
@@ -91,11 +101,24 @@ class CreateMarathonCommand(Command):
 
             audio_file_dir = os.path.dirname(loaded_map.get_filename()) + "\\"
 
-            with open(audio_file_dir + loaded_map.get_properties("[General]")["AudioFilename"], 'rb') as file:
-                audio_segment += AudioSegment.from_file(file)[:loaded_map.get_length() + 1000].fade_out(1000)
-                # audio_segment += silent
+            map_length = loaded_map.get_length()
 
-            append_at += loaded_map.get_length() + 1000
+            with open(audio_file_dir + loaded_map.get_properties("[General]")["AudioFilename"], 'rb') as file:
+
+                append_segment = AudioSegment.from_file(file)
+
+                leftover_length = (append_segment.duration_seconds * 1000) - map_length
+
+                if leftover_length >= 500:
+                    append_segment = append_segment[:map_length + 500].fade_out(500)
+                    append_segment += AudioSegment.silent(map_spacing - 500)
+                else:
+                    append_segment = append_segment[:map_length]
+                    append_segment += AudioSegment.silent(map_spacing)
+
+                audio_segment += append_segment
+
+            append_at += map_length + map_spacing
 
         directory = os.getcwd() + "\\output\\"
         os.makedirs(directory, exist_ok=True)

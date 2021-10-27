@@ -1,6 +1,7 @@
 import re
 
 import unicodedata
+from colorama import Style
 
 from commands.CommandHandler import CommandHandler
 

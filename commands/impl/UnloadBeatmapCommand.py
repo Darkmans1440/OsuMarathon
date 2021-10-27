@@ -5,7 +5,7 @@ from commands.Command import Command, argument_to_int_parameter
 class UnloadBeatmapCommand(Command):
 
     def __init__(self):
-        super().__init__("unload", "<1 argument (e.x: all or 0), unloads all beatmaps or just a single beatmap>")
+        super().__init__("unload", "(index or 'all') unloads the beatmap at the given index or every beatmap if 'all' is specified")
 
     def execute(self, params):
         if len(params) <= 0:
