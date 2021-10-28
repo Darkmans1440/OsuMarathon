@@ -11,7 +11,7 @@ something. Quality programming.
 
 ## How to setup/download
 
-Download Python from [here](https://www.python.org/downloads/)
+Download Python 3.10.0 or higher from [here](https://www.python.org/downloads/)
 
 Click the green Code button towards the top-right of this repository and then Download Zip.
 
