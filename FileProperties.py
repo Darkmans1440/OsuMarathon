@@ -164,7 +164,6 @@ class OsuProperties:
 
         return hitobjects_sorted[0].get_start_time()
 
-
     def get_length(self):
 
         highest = 0

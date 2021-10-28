@@ -44,7 +44,8 @@ class CommandHandler:
         for command in command_list:
             spacing = largest_length - len(command.get_label())
 
-            value += " - "+ Style.BRIGHT + command.get_label() + (" " * (spacing + 1)) + Fore.LIGHTYELLOW_EX + command.get_usage() + Style.RESET_ALL +"\n"
+            value += " - " + Style.BRIGHT + command.get_label() + (
+                        " " * (spacing + 1)) + Fore.LIGHTYELLOW_EX + command.get_usage() + Style.RESET_ALL + "\n"
 
         return value
 

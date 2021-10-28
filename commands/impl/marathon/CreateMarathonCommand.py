@@ -106,8 +106,6 @@ class CreateMarathonCommand(Command):
 
             with open(audio_file_dir + loaded_map.get_properties("[General]")["AudioFilename"], 'rb') as file:
 
-                print(loaded_map.get_first_note_time())
-
                 append_segment = AudioSegment.from_file(file)
 
                 leftover_length = (append_segment.duration_seconds * 1000) - map_length
@@ -116,7 +114,6 @@ class CreateMarathonCommand(Command):
                     append_segment = append_segment[first_note_time:map_length + 500].fade_out(500)
                     append_segment += AudioSegment.silent(map_spacing - 500)
                 else:
-                    print("No leftover audio for '" + loaded_map.get_filename() + "'")
                     append_segment = append_segment[first_note_time:map_length]
                     append_segment += AudioSegment.silent(map_spacing)
 

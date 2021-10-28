@@ -2,8 +2,8 @@ import os
 import traceback
 
 import Variables
-from colorama import init
 from colorama import Fore, Style
+from colorama import init
 from commands.impl.LoadBeatmapCommand import LoadBeatmapCommand
 from commands.impl.SwapLoadedBeatmapCommand import SwapLoadedBeatmapCommand
 from commands.impl.UnloadBeatmapCommand import UnloadBeatmapCommand

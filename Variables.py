@@ -60,7 +60,6 @@ def get_default_values_string():
             largest_value_length = length
 
     for key, value in default_values.items():
-
         spacing = largest_value_length - len(key)
 
         string += Fore.LIGHTMAGENTA_EX + key + (" " * (spacing + 3)) + Style.RESET_ALL
@@ -79,7 +78,8 @@ def get_loaded_properties_string():
     else:
         for i in range(size):
             loaded = loaded_properties[i]
-            string += " - "+Fore.GREEN + str(i) + Style.RESET_ALL + " : "+ Fore.LIGHTGREEN_EX + loaded.get_filename() + "\n" + Style.RESET_ALL
+            string += " - " + Fore.GREEN + str(
+                i) + Style.RESET_ALL + " : " + Fore.LIGHTGREEN_EX + loaded.get_filename() + "\n" + Style.RESET_ALL
 
     return string
 
