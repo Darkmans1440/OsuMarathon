@@ -15,7 +15,8 @@ from pydub import AudioSegment
 class CreateMarathonCommand(Command):
 
     def __init__(self):
-        super().__init__("create", "(spacing-between-beatmaps-in-seconds) opens a directory picker to choose where to save the output marathon")
+        super().__init__("create",
+                         "(spacing-between-beatmaps-in-seconds) creates the marathon at the given directory chosen in a directory picker")
 
     def execute(self, params):
 
@@ -80,9 +81,10 @@ class CreateMarathonCommand(Command):
         loaded_map: FileProperties.OsuProperties
         for loaded_map in Variables.loaded_properties:
 
+            first_note_time = loaded_map.get_first_note_time()
+
             for hitobject in loaded_map.get_hitobjects():
-                new_map.mutate_append_hitobject(append_at if append_at > 0 else 0,
-                                                FileProperties.HitObject(str(hitobject)))
+                new_map.mutate_append_hitobject(append_at - first_note_time, FileProperties.HitObject(str(hitobject)))
 
             for point in loaded_map.get_timingpoints():
 
@@ -95,9 +97,8 @@ class CreateMarathonCommand(Command):
                 inherited.set_inherited(True)
                 inherited.normalize_to(new_average_bpm)
 
-                new_map.mutate_append_timingpoint(append_at if append_at > 0 else 0,
-                                                  FileProperties.TimingPoint(data))
-                new_map.mutate_append_timingpoint(append_at if append_at > 0 else 0, inherited)
+                new_map.mutate_append_timingpoint(append_at - first_note_time, FileProperties.TimingPoint(data))
+                new_map.mutate_append_timingpoint(append_at - first_note_time, inherited)
 
             audio_file_dir = os.path.dirname(loaded_map.get_filename()) + "\\"
 
@@ -105,20 +106,23 @@ class CreateMarathonCommand(Command):
 
             with open(audio_file_dir + loaded_map.get_properties("[General]")["AudioFilename"], 'rb') as file:
 
+                print(loaded_map.get_first_note_time())
+
                 append_segment = AudioSegment.from_file(file)
 
                 leftover_length = (append_segment.duration_seconds * 1000) - map_length
 
                 if leftover_length >= 500:
-                    append_segment = append_segment[:map_length + 500].fade_out(500)
+                    append_segment = append_segment[first_note_time:map_length + 500].fade_out(500)
                     append_segment += AudioSegment.silent(map_spacing - 500)
                 else:
-                    append_segment = append_segment[:map_length]
+                    print("No leftover audio for '" + loaded_map.get_filename() + "'")
+                    append_segment = append_segment[first_note_time:map_length]
                     append_segment += AudioSegment.silent(map_spacing)
 
                 audio_segment += append_segment
 
-            append_at += map_length + map_spacing
+            append_at += (map_length - first_note_time) + map_spacing
 
         directory = os.getcwd() + "\\output\\"
         os.makedirs(directory, exist_ok=True)
@@ -169,4 +173,4 @@ class CreateMarathonCommand(Command):
         shutil.rmtree(directory)
 
         Variables.last_command_message = "Successfully created marathon '" + Variables.default_values[
-            "Title"] + "' check the launch directory"
+            "Title"] + "' check the chosen directory"

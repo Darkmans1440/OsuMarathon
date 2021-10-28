@@ -1,6 +1,7 @@
 import shlex
 
 import Variables
+from colorama import Style, Fore
 from commands.Command import Command
 
 
@@ -28,7 +29,24 @@ class CommandHandler:
         if command_list is None:
             command_list = self._commands.values()
 
-        return "\n".join([str(element) for element in command_list])
+        largest_length = 0
+
+        for command in command_list:
+
+            label = command.get_label()
+            length = len(label)
+
+            if length > largest_length:
+                largest_length = length
+
+        value = ""
+
+        for command in command_list:
+            spacing = largest_length - len(command.get_label())
+
+            value += " - "+ Style.BRIGHT + command.get_label() + (" " * (spacing + 1)) + Fore.LIGHTYELLOW_EX + command.get_usage() + Style.RESET_ALL +"\n"
+
+        return value
 
     def register_command(self, command: Command):
         self._commands[command.get_label().lower()] = command

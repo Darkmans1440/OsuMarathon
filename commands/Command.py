@@ -24,6 +24,9 @@ class Command:
     def __str__(self):
         return " - " + self._label + " " + self._usage
 
+    def get_usage(self):
+        return self._usage
+
     def get_label(self):
         return self._label
 

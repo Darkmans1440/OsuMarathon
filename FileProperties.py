@@ -155,6 +155,16 @@ class OsuProperties:
 
         return average_bpm
 
+    def get_first_note_time(self):
+
+        if len(self._hitobjects) == 0:
+            return -1
+
+        hitobjects_sorted = sorted(self._hitobjects, key=lambda x: x.get_start_time())
+
+        return hitobjects_sorted[0].get_start_time()
+
+
     def get_length(self):
 
         highest = 0
@@ -185,7 +195,7 @@ class OsuProperties:
 
     def exists_and_read(self):
 
-        if not os.path.exists(self._filename):
+        if not os.path.isfile(self._filename):
             return False
 
         self._read()

@@ -4,7 +4,8 @@ This program uses [Pydub](https://github.com/jiaaro/pydub) to modify audio.
 
 This program is probably pretty bad. It's my first ever program in python.
 
-I downloaded pycharm, followed their quick tutorial, typed code, and searched the internet when I needed to know something. Quality programming.
+I downloaded pycharm, followed their quick tutorial, typed code, and searched the internet when I needed to know
+something. Quality programming.
 
 ## How to setup/download
 
@@ -42,10 +43,9 @@ And without the double quotations, it would equal 5 arguments (property, title, 
 
 ## Making a marathon
 
-
 Read the usage for each command in the command window for a more detailed explanation.
 
- 1. Load beatmaps into the program by using the 'load' command
- 2. (Optional) swap the order of the loaded beatmaps using the 'swap' command
- 3. Configure the properties of the marathon using the 'property' command.
- 4. Create the marathon using the 'create' command.
+1. Load beatmaps into the program by using the 'load' command
+2. (Optional) swap the order of the loaded beatmaps using the 'swap' command
+3. Configure the properties of the marathon using the 'property' command.
+4. Create the marathon using the 'create' command.
