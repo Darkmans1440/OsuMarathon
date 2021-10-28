@@ -2,6 +2,8 @@
 
 This program uses [Pydub](https://github.com/jiaaro/pydub) to modify audio.
 
+This program uses [Colorama](https://github.com/tartley/colorama) to make the console look pretty.
+
 This program is probably pretty bad. It's my first ever program in python.
 
 I downloaded pycharm, followed their quick tutorial, typed code, and searched the internet when I needed to know
@@ -25,7 +27,7 @@ Launch the program by double-clicking Main.py.
 
 After that, you should see a program window like this popup:
 
-![the window](https://i.imgur.com/dFBE0Ow.png)
+![the window](https://i.imgur.com/mhWa4V1.png)
 
 ## Arguments
 
