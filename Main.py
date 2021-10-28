@@ -53,7 +53,7 @@ def run():
                 Variables.handler.handle_input(value)
 
                 size = len(Variables.loaded_properties)
-                os.system(f'mode con: cols=133 lines={str(33 + max(0, (size - 3) * 2))}')
+                os.system(f'mode con: cols=133 lines={str(33 + max(0, size * 2))}')
 
                 update_message()
             except Exception:

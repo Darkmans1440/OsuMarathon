@@ -36,7 +36,7 @@ class TimingPoint(TimeableObject):
         super().__init__(rawdata, 0, 0)
 
     def increment_start_end_times(self, new_time: int):
-        self.get_rawdata()[self.get_start_index()] = str(self.get_start_time() + new_time)
+        self.get_rawdata()[self.get_start_index()] = str(max(0, self.get_start_time() + new_time))
 
     def get_end_time(self):
         return -1
@@ -87,10 +87,12 @@ class OsuProperties:
     def mutate_append_timingpoint(self, spacing: int, timingpoint: 'TimingPoint'):
         timingpoint.increment_start_end_times(spacing)
         self._timingpoints.append(timingpoint)
+        return timingpoint
 
     def mutate_append_hitobject(self, spacing: int, hitobject: 'HitObject'):
         hitobject.increment_start_end_times(spacing)
         self._hitobjects.append(hitobject)
+        return hitobject
 
     def append(self, osu_properties: 'OsuProperties', spacing: int):
 

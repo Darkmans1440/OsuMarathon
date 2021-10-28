@@ -76,6 +76,7 @@ class CreateMarathonCommand(Command):
         new_map.get_timingpoints().clear()
 
         append_at = 0
+        loop_count = 0
         audio_segment = AudioSegment.empty()
 
         loaded_map: FileProperties.OsuProperties
@@ -83,8 +84,18 @@ class CreateMarathonCommand(Command):
 
             first_note_time = loaded_map.get_first_note_time()
 
+            print(str(first_note_time) + " for " + loaded_map.get_filename())
+
+            first_object = None
+
             for hitobject in loaded_map.get_hitobjects():
-                new_map.mutate_append_hitobject(append_at - first_note_time, FileProperties.HitObject(str(hitobject)))
+                obj = new_map.mutate_append_hitobject(append_at - first_note_time,
+                                                      FileProperties.HitObject(str(hitobject)))
+
+                if first_object is None:
+                    first_object = obj
+
+            timing_point_index = 0
 
             for point in loaded_map.get_timingpoints():
 
@@ -97,8 +108,22 @@ class CreateMarathonCommand(Command):
                 inherited.set_inherited(True)
                 inherited.normalize_to(new_average_bpm)
 
-                new_map.mutate_append_timingpoint(append_at - first_note_time, FileProperties.TimingPoint(data))
-                new_map.mutate_append_timingpoint(append_at - first_note_time, inherited)
+                if timing_point_index == 0:
+
+                    new_point = FileProperties.TimingPoint(data)
+                    new_point.increment_start_end_times(-new_point.get_start_time())
+                    new_point.increment_start_end_times(first_object.get_start_time())
+
+                    inherited.increment_start_end_times(-inherited.get_start_time())
+                    inherited.increment_start_end_times(first_object.get_start_time())
+
+                    new_map.get_timingpoints().append(new_point)
+                    new_map.get_timingpoints().append(inherited)
+                else:
+                    new_map.mutate_append_timingpoint(append_at - first_note_time, FileProperties.TimingPoint(data))
+                    new_map.mutate_append_timingpoint(append_at - first_note_time, inherited)
+
+                timing_point_index = timing_point_index + 1
 
             audio_file_dir = os.path.dirname(loaded_map.get_filename()) + "\\"
 
@@ -120,6 +145,7 @@ class CreateMarathonCommand(Command):
                 audio_segment += append_segment
 
             append_at += (map_length - first_note_time) + map_spacing
+            loop_count = loop_count + 1
 
         directory = os.getcwd() + "\\output\\"
         os.makedirs(directory, exist_ok=True)
