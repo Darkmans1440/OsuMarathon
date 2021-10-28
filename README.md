@@ -13,9 +13,9 @@ something. Quality programming.
 
 Download Python 3.10.0 or higher from [here](https://www.python.org/downloads/)
 
-Click the green Code button towards the top-right of this repository and then Download Zip.
+Navigate to the [Releases](https://github.com/Theone1000/OsuMarathon/releases) tab and download the most recent release
 
-After that, extract the OsuMarathon-main folder out of the zip to wherever you want.
+After that, extract the OsuMarathon folder out of the downloaded release zip to wherever you want.
 
 Then, download ffmpeg/ffprobe from [here](https://www.ffmpeg.orgt/download.html)
 
