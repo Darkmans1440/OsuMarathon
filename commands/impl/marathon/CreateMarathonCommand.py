@@ -84,8 +84,6 @@ class CreateMarathonCommand(Command):
 
             first_note_time = loaded_map.get_first_note_time()
 
-            print(str(first_note_time) + " for " + loaded_map.get_filename())
-
             first_object = None
 
             for hitobject in loaded_map.get_hitobjects():
