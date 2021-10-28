@@ -25,13 +25,13 @@ And finally, drag the downloaded ffmepg/ffprobe into the OsuMarathon-main folder
 
 Launch the program by double-clicking Main.py.
 
-After that, you should see a program window like this popup:
+After that, you should see a command window like this popup:
 
-![the window](https://i.imgur.com/mhWa4V1.png)
+![the window](https://i.imgur.com/uJV2lRX.png)
 
 ## Arguments
 
-The program window accepts input like a console window. You are going to use this to create your marathon.
+The command window accepts input like a console window. You are going to use this to create your marathon.
 
 Every space is equal to a new argument. To make an argument span multiple spaces, encase it with double quotations.
 
