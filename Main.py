@@ -10,12 +10,6 @@ from commands.impl.UnloadBeatmapCommand import UnloadBeatmapCommand
 from commands.impl.marathon.CreateMarathonCommand import CreateMarathonCommand
 from commands.impl.marathon.PropertyCommand import PropertyCommand
 
-Variables.handler.register_command(LoadBeatmapCommand())
-Variables.handler.register_command(SwapLoadedBeatmapCommand())
-Variables.handler.register_command(UnloadBeatmapCommand())
-Variables.handler.register_command(CreateMarathonCommand())
-Variables.handler.register_command(PropertyCommand())
-
 
 def update_message():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -40,7 +34,16 @@ def update_message():
     print(Variables.handler.get_command_list_string_of(["create", "property"]))
 
 
-def run():
+def main():
+    Variables.handler.register_command(LoadBeatmapCommand())
+    Variables.handler.register_command(SwapLoadedBeatmapCommand())
+    Variables.handler.register_command(UnloadBeatmapCommand())
+    Variables.handler.register_command(CreateMarathonCommand())
+    Variables.handler.register_command(PropertyCommand())
+
+    init(autoreset=True)  # colorama init
+    os.system('mode con: cols=133 lines=33')
+
     update_message()
 
     while True:
@@ -60,6 +63,8 @@ def run():
                 traceback.print_exc()
 
 
-init(autoreset=True)  # colorama init
-os.system('mode con: cols=133 lines=33')
-run()
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception:
+        traceback.print_exc()
