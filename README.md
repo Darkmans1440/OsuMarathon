@@ -17,7 +17,7 @@ Navigate to the [Releases](https://github.com/Theone1000/OsuMarathon/releases) t
 
 After that, extract the OsuMarathon folder out of the downloaded release zip to wherever you want.
 
-Then, download ffmpeg/ffprobe from [here](https://www.ffmpeg.orgt/download.html)
+Then, download ffmpeg/ffprobe from [here](https://www.ffmpeg.org/download.html)
 
 And finally, drag the downloaded ffmepg/ffprobe into the OsuMarathon-main folder.
 
