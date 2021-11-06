@@ -1,16 +1,3 @@
-import os
-import traceback
-
-import Variables
-from colorama import Fore, Style
-from colorama import init
-from commands.impl.LoadBeatmapCommand import LoadBeatmapCommand
-from commands.impl.SwapLoadedBeatmapCommand import SwapLoadedBeatmapCommand
-from commands.impl.UnloadBeatmapCommand import UnloadBeatmapCommand
-from commands.impl.marathon.CreateMarathonCommand import CreateMarathonCommand
-from commands.impl.marathon.PropertyCommand import PropertyCommand
-
-
 def update_message():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -60,11 +47,28 @@ def main():
 
                 update_message()
             except Exception:
-                traceback.print_exc()
+                with open("recent-error.txt", "w") as log:
+                    traceback.print_exc()
+                    traceback.print_exc(file=log)
 
 
 if __name__ == "__main__":
+
     try:
+        import os
+        import traceback
+        import Variables
+
+        from colorama import Fore, Style
+        from colorama import init
+        from commands.impl.LoadBeatmapCommand import LoadBeatmapCommand
+        from commands.impl.SwapLoadedBeatmapCommand import SwapLoadedBeatmapCommand
+        from commands.impl.UnloadBeatmapCommand import UnloadBeatmapCommand
+        from commands.impl.marathon.CreateMarathonCommand import CreateMarathonCommand
+        from commands.impl.marathon.PropertyCommand import PropertyCommand
+
         main()
     except Exception:
-        traceback.print_exc()
+        with open("recent-error.txt", "w") as log:
+            traceback.print_exc()
+            traceback.print_exc(file=log)

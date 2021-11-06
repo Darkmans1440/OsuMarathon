@@ -5,6 +5,8 @@ import unicodedata
 from colorama import Fore, Style
 from commands.CommandHandler import CommandHandler
 
+raise ValueError
+
 default_values = {
     "Title": "Custom Marathon",
     "Artist": "Various Artists",
